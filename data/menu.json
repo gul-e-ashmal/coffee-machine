@@ -1,0 +1,122 @@
+{
+  "categories": [
+    {
+      "category_id": "C01",
+      "name": "Espresso",
+      "drinks": [
+        {
+          "drink_id": "D001",
+          "name": "Espresso",
+          "base_price": 2.5,
+          "ingredients": {
+            "espresso_shot": 1
+          }
+        },
+        {
+          "drink_id": "D002",
+          "name": "Americano",
+          "base_price": 2.8,
+          "ingredients": {
+            "espresso_shot": 1
+          }
+        },
+        {
+          "drink_id": "D003",
+          "name": "Macchiato",
+          "base_price": 3.0,
+          "ingredients": {
+            "espresso_shot": 1,
+            "milk_ml": 30
+          }
+        }
+      ]
+    },
+    {
+      "category_id": "C02",
+      "name": "Milk Coffee",
+      "drinks": [
+        {
+          "drink_id": "D004",
+          "name": "Latte",
+          "base_price": 3.5,
+          "ingredients": {
+            "espresso_shot": 1,
+            "milk_ml": 200
+          }
+        },
+        {
+          "drink_id": "D005",
+          "name": "Cappuccino",
+          "base_price": 3.4,
+          "ingredients": {
+            "espresso_shot": 1,
+            "milk_ml": 120
+          }
+        },
+        {
+          "drink_id": "D006",
+          "name": "Flat White",
+          "base_price": 3.6,
+          "ingredients": {
+            "espresso_shot": 2,
+            "milk_ml": 120
+          }
+        }
+      ]
+    },
+    {
+      "category_id": "C03",
+      "name": "Tea",
+      "drinks": [
+        {
+          "drink_id": "D007",
+          "name": "Black Tea",
+          "base_price": 2.2,
+          "ingredients": {
+            "tea_bag": 1
+          }
+        },
+        {
+          "drink_id": "D008",
+          "name": "Green Tea",
+          "base_price": 2.2,
+          "ingredients": {
+            "tea_bag": 1
+          }
+        },
+        {
+          "drink_id": "D009",
+          "name": "Chai Latte",
+          "base_price": 3.3,
+          "ingredients": {
+            "tea_bag": 1,
+            "milk_ml": 150
+          }
+        }
+      ]
+    },
+    {
+      "category_id": "C04",
+      "name": "Cold Drinks",
+      "drinks": [
+        {
+          "drink_id": "D010",
+          "name": "Iced Latte",
+          "base_price": 3.8,
+          "ingredients": {
+            "espresso_shot": 1,
+            "milk_ml": 200
+          }
+        },
+        {
+          "drink_id": "D011",
+          "name": "Iced Americano",
+          "base_price": 3.0,
+          "ingredients": {
+            "espresso_shot": 1
+          }
+        }
+      ]
+    }
+  ]
+}
