@@ -27,60 +27,6 @@
         "syrup_vanilla": 2
       },
       "timestamp": "2026-10-18T16:10:25"
-    },
-    {
-      "order_id": "O002",
-      "user_id": "U001",
-      "drink_id": "D007",
-      "drink_name": "Black Tea",
-      "customization": {
-        "milk": null,
-        "strength": null,
-        "temperature": "hot",
-        "syrup": {}
-      },
-      "total_price": 2.2,
-      "payment": {
-        "method": "cash",
-        "amount": 2.2,
-        "cash_tendered": 2.5,
-        "change": 0.3,
-        "status": "success",
-        "reference": "TXN-20261018162418-189436"
-      },
-      "ingredients_used": {
-        "tea_bag": 1
-      },
-      "timestamp": "2026-10-18T16:24:18"
-    },
-    {
-      "order_id": "O003",
-      "user_id": "U001",
-      "drink_id": "D004",
-      "drink_name": "Latte",
-      "customization": {
-        "milk": "whole",
-        "strength": "strong",
-        "temperature": "hot",
-        "syrup": {
-          "vanilla": 2
-        }
-      },
-      "total_price": 4.9,
-      "payment": {
-        "method": "cash",
-        "amount": 4.9,
-        "cash_tendered": 5.0,
-        "change": 0.1,
-        "status": "success",
-        "reference": "TXN-20261019085909-AC78F6"
-      },
-      "ingredients_used": {
-        "espresso_shot": 2,
-        "milk_ml": 200,
-        "syrup_vanilla": 2
-      },
-      "timestamp": "2026-10-19T08:59:09"
     }
   ]
 }
