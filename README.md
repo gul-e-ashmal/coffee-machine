@@ -31,14 +31,14 @@ The system simulates a coffee shop ordering kiosk. It covers the full journey fr
 |---|---|---|
 | FR01 | Register a user account | Create an account with a validated username and password |
 | FR02 | Log in | Authenticate with credentials and start a session |
-| FR06 | Display beverage categories | Entry point of the menu (Espresso, Milk Coffee, Tea, Cold Drinks) |
-| FR07 | Display drinks in a category | Shows drinks and prices of the selected category |
-| FR15 | Customize a beverage in real time | Milk type, strength, temperature and syrup shots, with a live price summary |
-| FR08 | Disable unavailable drinks | Drinks with low ingredient stock are marked `[UNAVAILABLE]` and cannot be ordered |
-| FR18 | Process beverage payments | Simulated card or cash payment (no real money or real card processing) |
-| FR19 | Record completed transactions | Saves each order with its customization and updates stock; order history is viewable |
-| FR04 | Save and name a custom recipe | Keep a customized drink as a named recipe |
-| FR05 | Modify a saved recipe | Rename a recipe or change its customization |
+| FR03 | Display beverage categories | Entry point of the menu (Espresso, Milk Coffee, Tea, Cold Drinks) |
+| FR05 | Display drinks in a category | Shows drinks and prices of the selected category |
+| FR05 | Customize a beverage in real time | Milk type, strength, temperature and syrup shots, with a live price summary |
+| FR06 | Disable unavailable drinks | Drinks with low ingredient stock are marked `[UNAVAILABLE]` and cannot be ordered |
+| FR07 | Process beverage payments | Simulated card or cash payment (no real money or real card processing) |
+| FR08 | Record completed transactions | Saves each order with its customization and updates stock; order history is viewable |
+| FR09 | Save and name a custom recipe | Keep a customized drink as a named recipe |
+| FR10 | Modify a saved recipe | Rename a recipe or change its customization |
 
 ### Bonus feature
 
@@ -221,20 +221,20 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
 3. Choose **Logout**, then log in with a wrong password.
 4. **Expected:** "Invalid username or password. 2 attempt(s) left." After 3 failed attempts you return to the start menu.
 
-### FR06: Display available beverage categories
+### FR03: Display available beverage categories
 
 1. After logging in, choose **Browse Menu and Order**.
 2. **Expected:** the categories Espresso, Milk Coffee, Tea and Cold Drinks.
 3. `data/menu.json` is created automatically with this starter menu.
 4. Choose **Back** to return to the main menu.
 
-### FR07: Display drinks in a selected category
+### FR04: Display drinks in a selected category
 
 1. Choose **Browse Menu and Order**, then **Milk Coffee**.
 2. **Expected:** Latte ($3.50), Cappuccino ($3.40), Flat White ($3.60) and "Back to categories".
 3. Choose **Back to categories** to return to the category list.
 
-### FR15: Customize a beverage in real time
+### FR05: Customize a beverage in real time
 
 1. Select **Latte**. You are guided through milk type, strength, temperature and syrup.
 2. After every choice a live summary shows the drink and the running price.
@@ -246,7 +246,7 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
    - Choose **Change an option** to edit a choice, or **Cancel** to go back.
 6. Choose **Confirm drink** to continue to payment.
 
-### FR08: Disable unavailable drinks
+### FR06: Disable unavailable drinks
 
 1. Close the program. Open `data/inventory.json` in VS Code or any text editor.
 2. Change `"milk_ml": 5000` to `"milk_ml": 100` and save the file.
@@ -255,7 +255,7 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
 5. Another check: set `"espresso_shot": 1` and order a Latte with **Strong** strength. After customizing, the app reports that it needs 2 shots and only 1 is left, and offers to change the customization.
 6. Restore the original values (`"milk_ml": 5000`, `"espresso_shot": 50`) when finished.
 
-### FR18: Process beverage payments
+### FR07: Process beverage payments
 
 1. Order a drink and confirm it. The payment menu offers **Card**, **Cash** and **Cancel order**.
 2. **Card:** enter `4111 1111 1111 1111`, expiry `12/29`, CVV `123`. **Expected:** "PAYMENT SUCCESSFUL" with a receipt and reference.
@@ -263,7 +263,7 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
 4. **Cash:** for a $5.40 drink, enter `10`. **Expected:** change of $4.60. Entering less than the price asks for more.
 5. **Cancel order** returns to the menu and nothing is recorded.
 
-### FR19: Record completed transactions and customization parameters
+### FR08: Record completed transactions and customization parameters
 
 1. Complete a successful payment.
 2. **Expected:** "Order O001 recorded."
@@ -272,7 +272,7 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
 5. In the main menu, choose **Order History** to see all your orders, newest first, with a total spent.
 6. A cancelled or declined payment must **not** create an order or change stock.
 
-### FR04: Save and name a custom beverage recipe
+### FR09: Save and name a custom beverage recipe
 
 **Method 1: after an order**
 1. After an order is recorded, answer **Yes** to "Save this drink as a recipe?".
@@ -285,7 +285,7 @@ Never enter a real card number. Any 16 digits are accepted, and a number ending 
 
 **Checks:** names must be 3 to 30 characters (letters, numbers, spaces, hyphens, apostrophes). Duplicate names are rejected per user. Typing `c` cancels. Choose **View my recipes** to see the list, and see `data/recipes.json` for the stored data.
 
-### FR05: Modify a saved recipe
+### FR10: Modify a saved recipe
 
 1. Choose **My Recipes**, then **Edit a recipe**, and pick a recipe.
 2. **Rename:** enter a new name. **Expected:** "Recipe renamed to ..."
