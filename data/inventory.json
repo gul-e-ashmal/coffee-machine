@@ -1,9 +1,9 @@
 {
   "ingredients": {
-    "espresso_shot": 46,
-    "milk_ml": 50100,
-    "tea_bag": 39,
-    "syrup_vanilla": 16,
+    "espresso_shot": 50,
+    "milk_ml": 5000,
+    "tea_bag": 40,
+    "syrup_vanilla": 20,
     "syrup_caramel": 20,
     "syrup_hazelnut": 20
   }
