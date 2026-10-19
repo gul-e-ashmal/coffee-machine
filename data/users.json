@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "user_id": "U001",
+      "username": "gul",
+      "password_hash": "02cb75de0efa1f80576c470552b0bf169de5082e914af097d4c3e744ae08efef",
+      "salt": "23db3627865091d7758901e85cba45f6",
+      "created_at": "2026-10-18T09:30:04"
+    }
+  ]
+}
