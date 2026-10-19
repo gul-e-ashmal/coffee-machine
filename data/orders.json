@@ -52,6 +52,35 @@
         "tea_bag": 1
       },
       "timestamp": "2026-10-18T16:24:18"
+    },
+    {
+      "order_id": "O003",
+      "user_id": "U001",
+      "drink_id": "D004",
+      "drink_name": "Latte",
+      "customization": {
+        "milk": "whole",
+        "strength": "strong",
+        "temperature": "hot",
+        "syrup": {
+          "vanilla": 2
+        }
+      },
+      "total_price": 4.9,
+      "payment": {
+        "method": "cash",
+        "amount": 4.9,
+        "cash_tendered": 5.0,
+        "change": 0.1,
+        "status": "success",
+        "reference": "TXN-20261019085909-AC78F6"
+      },
+      "ingredients_used": {
+        "espresso_shot": 2,
+        "milk_ml": 200,
+        "syrup_vanilla": 2
+      },
+      "timestamp": "2026-10-19T08:59:09"
     }
   ]
 }

@@ -1,3 +1,4 @@
+import copy
 import re
 
 from config import (
@@ -6,9 +7,20 @@ from config import (
     MAX_RECIPE_NAME_LENGTH,
     MAX_RECIPES_PER_USER,
 )
-from customization import customize_drink, calculate_price
-from menu import load_menu, select_category, select_drink
-from orders import describe_customization
+from customization import (
+    customize_drink,
+    calculate_price,
+    calculate_ingredient_usage,
+)
+from menu import (
+    load_menu,
+    select_category,
+    select_drink,
+    find_shortages,
+    ingredient_name,
+)
+from orders import describe_customization, create_order, print_order_confirmation
+from payment import process_payment
 from storage import load_json, save_json
 from utils import generate_id, get_choice, get_input, now_iso, format_price
 
@@ -174,11 +186,14 @@ def recipes_menu(user):
     while True:
         choice = get_choice(
             "=== My Recipes ===",
-            ["View my recipes", "Create a new recipe", "Edit a recipe", "Back"],
+            ["View my recipes", "Order from a recipe", "Create a new recipe",
+             "Edit a recipe", "Back"],
         )
 
         if choice == "View my recipes":
             display_recipes(user["user_id"])
+        elif choice == "Order from a recipe":
+            order_from_recipe_flow(user)
         elif choice == "Create a new recipe":
             create_recipe_flow(user)
         elif choice == "Edit a recipe":
@@ -306,7 +321,7 @@ def edit_recipe(user, recipe_id):
             return
 
 
-def select_recipe(user_id):
+def select_recipe(user_id, prompt="Which recipe do you want to edit?"):
     """Let the user pick one of their recipes. Returns its recipe_id or None."""
     recipes = get_user_recipes(user_id)
     if not recipes:
@@ -320,7 +335,7 @@ def select_recipe(user_id):
         labels.append(f"{recipe['name']} ({drink_name})")
     labels.append("Back")
 
-    choice = get_choice("Which recipe do you want to edit?", labels)
+    choice = get_choice(prompt, labels)
     if choice == "Back":
         return None
     return recipes[labels.index(choice)]["recipe_id"]
@@ -333,3 +348,74 @@ def edit_recipe_flow(user):
         if recipe_id is None:
             return
         edit_recipe(user, recipe_id)
+
+
+# ---------- Order from a saved recipe ----------
+
+def order_from_recipe(user, recipe_id):
+    """
+    Order one saved recipe: stock check, optional one-time changes, payment,
+    then record the order. The saved recipe itself is never modified.
+    Returns the order dict if an order was placed, otherwise None.
+    """
+    recipe = get_recipe(user["user_id"], recipe_id)
+    if recipe is None:
+        print("\n  ! That recipe could not be found.")
+        return None
+
+    drink = find_drink(recipe["drink_id"])
+    if drink is None:
+        print("\n  ! This drink is no longer on the menu, so it can't be ordered.")
+        return None
+
+    selection = copy.deepcopy(recipe["customization"])
+
+    while True:
+        total = calculate_price(drink, selection)
+        shortages = find_shortages(calculate_ingredient_usage(drink, selection))
+
+        print("\n" + "-" * 44)
+        print(f"  {recipe['name']}  ({drink['name']})")
+        print(f"  {describe_customization(selection)}")
+        print(f"  Price: {format_price(total)}")
+        print("-" * 44)
+
+        if shortages:
+            print("\n  ! Sorry, we can't make this drink right now:")
+            for ingredient, needed, available in shortages:
+                print(f"    - {ingredient_name(ingredient)}: "
+                      f"needs {needed}, only {available} left")
+            options = ["Customize for this order only", "Back"]
+        else:
+            options = ["Order now", "Customize for this order only", "Back"]
+
+        choice = get_choice("What would you like to do?", options)
+
+        if choice == "Back":
+            return None
+
+        if choice == "Customize for this order only":
+            changed = customize_drink(drink, selection)
+            if changed is not None:
+                selection = changed
+            continue
+
+        # Order now
+        payment = process_payment(total)
+        if payment is None:
+            print("\nPayment cancelled. Your order was not placed.")
+            continue
+
+        order = create_order(user, drink, selection, total, payment)
+        print_order_confirmation(order)
+        return order
+
+
+def order_from_recipe_flow(user):
+    """Pick a recipe and order it. Returns to the menu after an order or Back."""
+    while True:
+        recipe_id = select_recipe(user["user_id"], "Which recipe do you want to order?")
+        if recipe_id is None:
+            return
+        if order_from_recipe(user, recipe_id) is not None:
+            return
